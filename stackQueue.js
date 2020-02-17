@@ -120,4 +120,4 @@ function Node(value = null) {
   this.previous = null;
 }
 
-module.exports = { makeStack, makeQueue, LinkedList };
+module.exports = { makeStack, makeQueue, LinkedList, Node };

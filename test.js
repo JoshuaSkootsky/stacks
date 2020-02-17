@@ -3,7 +3,7 @@
 
 // const test = require('ava');
 const test = require('ava');
-const { makeStack, makeQueue, LinkedList } = require('./stackQueue');
+const { makeStack, makeQueue, LinkedList, Node } = require('./stackQueue');
 
 test('ava running?', t => {
   t.pass();
@@ -18,6 +18,12 @@ test('ava async testing running?', async t => {
 //   // This runs before all tests
 //   // make your linked list and set it up
 //   linkedList = new LinkedList();
+// });
+
+// custom timeouts in ava
+// test('foo', t => {
+// 	t.timeout(100); // 100 milliseconds
+// 	// Write your assertions here
 // });
 
 // stack.add = add;
@@ -47,26 +53,27 @@ test('linkedList has methods', t => {
   t.is(typeof linkedList.search, 'function');
 });
 
+test('linked list defaults to falsy', t => {
+  const linkedList = new LinkedList();
+  t.falsy(linkedList.head);
+  t.falsy(linkedList.tail);
+  t.falsy(linkedList.removeHead());
+});
+
+test('node class is defined', t => {
+  function isNative(fn) {
+    return /\{\s*\[native code]\s*\}/.test('' + fn);
+  }
+  t.is(typeof Node, 'function');
+  t.falsy(isNative(Node));
+});
+
+test('Node class takes values', t => {
+  const node = new Node('test');
+  t.is(node.value, 'test');
+});
+
 /*
-
-
-  it('starts with head and tail falsy', () => {
-    expect(linkedList.head).toBeFalsy()
-    expect(linkedList.tail).toBeFalsy()
-    expect(linkedList.removeHead()).toBeFalsy()
-  })
-
-  it('has a Node class defined to represent a node', () => {
-    // `isNative` is a helper function used by this spec.
-    // There is already an object called `Node` in the browser (unrelated to the "Node"s in our Linked List),
-    // so this function makes sure that we're using YOUR Node.
-    function isNative (fn) {
-      return (/\{\s*\[native code]\s*\}/).test('' + fn)
-    }
-    expect(typeof Node).toBe('function')
-    expect(isNative(Node)).toBe(false)
-  })
-
   it('Node class should take a value argument and define next and previous to be null by default', () => {
     const node = new Node('test')
     expect(node.value).toBe('test')

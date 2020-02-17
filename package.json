@@ -5,7 +5,8 @@
   "main": "stackQueue.js",
   "scripts": {
     "test": "ava --verbose --watch",
-    "test:cov": "nyc ava"
+    "test:cov": "nyc ava",
+    "test:nyan": "ava --tap | npx tap-nyan"
   },
   "keywords": [
     "Crockford",
@@ -18,6 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "ava": "^3.3.0",
-    "nyc": "^15.0.0"
+    "nyc": "^15.0.0",
+    "tap-nyan": "^1.1.0"
   }
 }
