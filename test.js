@@ -75,27 +75,22 @@ test('Node class takes values', t => {
   t.is(node.previous, null);
 });
 
+test('Linked list uses Node class', t => {
+  const linkedList = new LinkedList();
+  linkedList.addToTail('first');
+  t.truthy(linkedList.tail instanceof Node);
+});
+
+test('Adding a node to head, it is set as head and tail', t => {
+  const linkedList = new LinkedList();
+  linkedList.addToHead('first');
+  t.is(linkedList.head.value, 'first');
+  t.falsy(linkedList.head.next);
+  t.falsy(linkedList.head.previous);
+  t.is(linkedList.head, linkedList.tail);
+});
+
 /*
-  it('Node class should take a value argument and define next and previous to be null by default', () => {
-    const node = new Node('test')
-    expect(node.value).toBe('test')
-    expect(node.next).toBe(null)
-    expect(node.previous).toBe(null)
-  })
-
-  it('linkedlist should use Node class to add nodes', () => {
-    linkedList.addToTail('first')
-    expect(linkedList.tail instanceof Node).toBe(true)
-  })
-
-  it('if a single node is added to head, it should be set to head and tail', () => {
-    linkedList.addToHead('first')
-    expect(linkedList.head.value).toBe('first')
-    expect(linkedList.head.next).toBeFalsy()
-    expect(linkedList.head.previous).toBeFalsy()
-    expect(linkedList.head).toBe(linkedList.tail)
-  })
-
   it('should return the head on a removeHead', () => {
     linkedList.addToTail('first')
     linkedList.addToTail('second')
