@@ -4,7 +4,7 @@
   "description": "stack and queue with Crockford style objects",
   "main": "stackQueue.js",
   "scripts": {
-    "test": "ava --verbose"
+    "test": "ava --verbose --watch"
   },
   "keywords": [
     "Crockford",

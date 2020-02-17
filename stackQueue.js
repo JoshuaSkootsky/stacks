@@ -41,4 +41,83 @@ function makeQueue() {
   return Object.freeze(queue);
 }
 
-module.exports = { makeStack, makeQueue };
+// LinkedList
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
+
+  addToTail(value) {
+    const newNode = new Node(value);
+    if (this.tail) this.tail.next = newNode;
+    else this.head = newNode;
+    newNode.previous = this.tail;
+    this.tail = newNode;
+  }
+
+  addToHead(value) {
+    const newNode = new Node(value);
+    if (this.head) this.head.previous = newNode;
+    else this.tail = newNode;
+    newNode.next = this.head;
+    this.head = newNode;
+  }
+
+  removeHead() {
+    if (!this.head) return null;
+    const removedHead = this.head;
+    if (!removedHead.next) {
+      this.head = null;
+      this.tail = null;
+      return removedHead.value;
+    }
+    const next = removedHead.next;
+    next.previous = null;
+    this.head = next;
+    return removedHead.value;
+  }
+
+  removeTail() {
+    if (!this.tail) return null;
+    const removedTail = this.tail;
+    if (!removedTail.previous) {
+      this.tail = null;
+      this.head = null;
+      return removedTail.value;
+    }
+    const previous = removedTail.previous;
+    previous.next = null;
+    this.tail = previous;
+    return removedTail.value;
+  }
+
+  // current node, while curr.next = truthy, keep looking
+  search(param) {
+    let current = this.head;
+    if (typeof param === 'function') {
+      while (current) {
+        console.log(current.value);
+        if (param(current.value)) {
+          return current.value;
+        }
+        current = current.next;
+      }
+      console.log('about to return null in function loop');
+      return null;
+    }
+    while (current) {
+      if (current.value === param) return current.value;
+      current = current.next;
+    }
+    return null;
+  }
+}
+
+function Node(value = null) {
+  this.value = value;
+  this.next = null;
+  this.previous = null;
+}
+
+module.exports = { makeStack, makeQueue, LinkedList };
