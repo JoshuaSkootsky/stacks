@@ -71,6 +71,8 @@ test('node class is defined', t => {
 test('Node class takes values', t => {
   const node = new Node('test');
   t.is(node.value, 'test');
+  t.is(node.next, null);
+  t.is(node.previous, null);
 });
 
 /*
