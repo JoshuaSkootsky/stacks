@@ -1,0 +1,21 @@
+{
+  "name": "stackads",
+  "version": "1.0.0",
+  "description": "stack and queue with Crockford style objects",
+  "main": "stackQueue.js",
+  "scripts": {
+    "test": "ava --verbose"
+  },
+  "keywords": [
+    "Crockford",
+    "stack",
+    "queue",
+    "data",
+    "structures"
+  ],
+  "author": "Joshua Skootsky",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^3.3.0"
+  }
+}
