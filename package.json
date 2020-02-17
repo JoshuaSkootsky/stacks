@@ -1,5 +1,5 @@
 {
-  "name": "stackads",
+  "name": "stacks",
   "version": "1.0.0",
   "description": "stack and queue with Crockford style objects",
   "main": "stackQueue.js",
