@@ -4,7 +4,8 @@
   "description": "stack and queue with Crockford style objects",
   "main": "stackQueue.js",
   "scripts": {
-    "test": "ava --verbose --watch"
+    "test": "ava --verbose --watch",
+    "test:cov": "nyc ava"
   },
   "keywords": [
     "Crockford",
@@ -16,6 +17,7 @@
   "author": "Joshua Skootsky",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^3.3.0"
+    "ava": "^3.3.0",
+    "nyc": "^15.0.0"
   }
 }
