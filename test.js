@@ -90,40 +90,44 @@ test('Adding a node to head, it is set as head and tail', t => {
   t.is(linkedList.head, linkedList.tail);
 });
 
+test('Return the head when head is removed', t => {
+  const linkedList = new LinkedList();
+  linkedList.addToTail('first');
+  linkedList.addToTail('second');
+  linkedList.addToTail('third');
+  t.is(linkedList.removeHead(), 'first');
+  t.is(linkedList.removeHead(), 'second');
+  t.is(linkedList.removeHead(), 'third');
+});
+
+test('Make sure prev of new HEAD node is NULL', t => {
+  const linkedList = new LinkedList();
+  linkedList.addToTail('first');
+  linkedList.addToTail('second');
+  linkedList.addToTail('third');
+  t.is(linkedList.removeHead(), 'first');
+  t.is(linkedList.head.previous, null);
+});
+
+test('Next of any new TAIL is also NULL', t => {
+  const linkedList = new LinkedList();
+  linkedList.addToTail('first');
+  linkedList.addToTail('second');
+  linkedList.addToTail('third');
+  t.is(linkedList.removeTail(), 'third');
+  t.is(linkedList.tail.next, null);
+});
+
+test('add head or tail', t => {
+  const linkedList = new LinkedList();
+  linkedList.addToTail('second');
+  linkedList.addToHead('first');
+  linkedList.addToTail('third');
+  t.is(linkedList.removeHead(), 'first');
+  t.is(linkedList.removeHead(), 'second');
+  t.is(linkedList.removeHead(), 'third');
+});
 /*
-  it('should return the head on a removeHead', () => {
-    linkedList.addToTail('first')
-    linkedList.addToTail('second')
-    linkedList.addToTail('third')
-    expect(linkedList.removeHead()).toBe('first')
-    expect(linkedList.removeHead()).toBe('second')
-    expect(linkedList.removeHead()).toBe('third')
-  })
-
-  it('should make sure the previous of any newly appointed HEAD is null', () => {
-    linkedList.addToTail('first')
-    linkedList.addToTail('second')
-    linkedList.addToTail('third')
-    expect(linkedList.removeHead()).toBe('first')
-    expect(linkedList.head.previous).toBe(null)
-  })
-
-  it('should make sure the next of any newly appointed TAIL is null', () => {
-    linkedList.addToTail('first')
-    linkedList.addToTail('second')
-    linkedList.addToTail('third')
-    expect(linkedList.removeTail()).toBe('third')
-    expect(linkedList.tail.next).toBe(null)
-  })
-
-  it('should be able to add to head or tail', () => {
-    linkedList.addToTail('second')
-    linkedList.addToHead('first')
-    linkedList.addToTail('third')
-    expect(linkedList.removeHead()).toBe('first')
-    expect(linkedList.removeHead()).toBe('second')
-    expect(linkedList.removeHead()).toBe('third')
-  })
 
   it('should return the tail on a removeTail', () => {
     linkedList.addToTail('second')
