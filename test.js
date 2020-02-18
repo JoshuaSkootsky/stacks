@@ -118,7 +118,7 @@ test('Next of any new TAIL is also NULL', t => {
   t.is(linkedList.tail.next, null);
 });
 
-test('add head or tail', t => {
+test('can add to head or tail in any order', t => {
   const linkedList = new LinkedList();
   linkedList.addToTail('second');
   linkedList.addToHead('first');
@@ -127,74 +127,75 @@ test('add head or tail', t => {
   t.is(linkedList.removeHead(), 'second');
   t.is(linkedList.removeHead(), 'third');
 });
-/*
 
-  it('should return the tail on a removeTail', () => {
-    linkedList.addToTail('second')
-    linkedList.addToHead('third')
-    linkedList.addToTail('first')
-    expect(linkedList.removeTail()).toBe('first')
-    expect(linkedList.removeTail()).toBe('second')
-    expect(linkedList.removeTail()).toBe('third')
-  })
+test('returns tail on removeTail', t => {
+  const linkedList = new LinkedList();
+  linkedList.addToTail('second');
+  linkedList.addToHead('third');
+  linkedList.addToTail('first');
+  t.is(linkedList.removeTail(), 'first');
+  t.is(linkedList.removeTail(), 'second');
+  t.is(linkedList.removeTail(), 'third');
+});
 
-  it('should remove head and tail when last node is removed', () => {
-    expect(linkedList.removeHead()).toBeFalsy()
-    linkedList.addToTail('one')
-    expect(linkedList.removeHead()).toBe('one')
-    expect(linkedList.removeHead()).toBeFalsy()
-    expect(linkedList.head).toBeFalsy()
-    expect(linkedList.tail).toBeFalsy()
-  })
+test('removes head and tail when last node is removed', t => {
+  const linkedList = new LinkedList();
+  t.is(linkedList.removeHead(), null);
+  linkedList.addToTail('one');
+  t.is(linkedList.removeHead(), 'one');
+  t.is(linkedList.removeHead(), null);
+  t.is(linkedList.head, null);
+  t.is(linkedList.tail, null);
+});
 
-  it('should return the correct values for search', () => {
-    linkedList.addToTail('one')
-    linkedList.addToTail('two')
-    linkedList.addToTail('three')
-    linkedList.addToTail('four')
-    linkedList.addToTail('one')
-    expect(linkedList.search('two')).toBe('two')
-    expect(linkedList.search('sdd')).toBe(null)
-    expect(linkedList.search('one')).toBe('one')
-    expect(linkedList.search('four')).toBe('four')
-  })
+test('search function works', t => {
+  const linkedList = new LinkedList();
+  linkedList.addToTail('one');
+  linkedList.addToTail('two');
+  linkedList.addToTail('three');
+  linkedList.addToTail('four');
+  linkedList.addToTail('one');
+  t.is(linkedList.search('sdd'), null);
+  t.is(linkedList.search('three'), 'three');
+});
 
-  it('should be able to take strings and functions both as search inputs', () => {
-    linkedList.addToTail('one')
-    linkedList.addToTail('two')
-    const foundNode = linkedList.search((nodeValue) => {
-      return nodeValue === 'two'
-    })
-    expect(foundNode).toBe('two')
-  })
+test('take strings and functions as search parameters', t => {
+  const linkedList = new LinkedList();
+  linkedList.addToTail('one');
+  linkedList.addToTail('two');
+  const foundNodeVal = linkedList.search(nodeValue => {
+    return nodeValue === 'two';
+  });
+  t.is(foundNodeVal, 'two');
+});
 
-  // This spec demonstrates the utility of the previous spec.
-  // If you are passing the last one correctly, this one should already pass!
-  it('should therefore be able to store and search for objects, not just strings', () => {
-    function UserNode (name, email, city) {
-      this.name = name
-      this.email = email
-      this.city = city
-    }
+test('more complex test of taking a function as a parameter', t => {
+  const linkedList = new LinkedList();
+  function UserNode(name, email, city) {
+    this.name = name;
+    this.email = email;
+    this.city = city;
+  }
+  linkedList.addToHead(
+    new UserNode('Joshua', 'joshua@awesome.com', 'New York')
+  );
+  linkedList.addToHead(
+    new UserNode('David', 'david@schroding.com', 'New York')
+  );
+  linkedList.addToHead(new UserNode('April', 'april@awesome.com', 'Chicago'));
 
-    linkedList.addToHead(new UserNode('Nimit', 'nimit@fs.com', 'New York'))
-    linkedList.addToHead(new UserNode('David', 'david@fs.com', 'New York'))
-    linkedList.addToHead(new UserNode('Paul', 'paul@yc.com', 'Mountain View'))
+  const foundNode1 = linkedList.search(userNode => {
+    return userNode.name === 'Joshua';
+  });
+  t.is(foundNode1.email, 'joshua@awesome.com');
 
-    const foundNode1 = linkedList.search((userNode) => {
-      return userNode.name === 'Nimit'
-    })
-    expect(foundNode1.email).toBe('nimit@fs.com')
+  const foundNode2 = linkedList.search(userNode => {
+    return userNode.email === 'david@schroding.com';
+  });
+  t.is(foundNode2.city, 'New York');
 
-    const foundNode2 = linkedList.search((userNode) => {
-      return userNode.email === 'david@fs.com'
-    })
-    expect(foundNode2.city).toBe('New York')
-
-    const foundNode3 = linkedList.search((userNode) => {
-      return userNode.city === 'Mountain View'
-    })
-    expect(foundNode3.name).toBe('Paul')
-  })
-
-  */
+  const foundNode3 = linkedList.search(userNode => {
+    return userNode.city === 'Chicago';
+  });
+  t.is(foundNode3.name, 'April');
+});
